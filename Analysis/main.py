@@ -121,12 +121,12 @@ if __name__ == "__main__":
     extracted_rooms_contours, markers = rd.extract_rooms(image_inner_outer_walls)
 
     # Append inner and outer walls to one array
-    for val in inner_wall_corners:
-        outer_wall_corners.append(val)
+    for val in outer_wall_corners:
+        inner_wall_corners.append(val)
 
     # Export values as JSON
     export_json_list(inner_wall_closure_areas, "output/doors")
     export_json_list(outer_wall_closure_areas, "output/windows")
-    export_json_list(outer_wall_corners, "output/walls")
+    export_json_list(inner_wall_corners, "output/walls")
 
 

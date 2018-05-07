@@ -76,7 +76,7 @@ def check_direction(corner, contour_img):
     y, x = corner
 
     for i, v in enumerate(reversed(contour_img[x][:y])):
-        if 3 < i < 8:
+        if 4 < i < 8:
             for r in range(-5, 5):
                 if contour_img[x + r][y - i] == 123:
                     left = True
@@ -100,7 +100,6 @@ def get_next_direction(corners, contour_img, last_direction):
     last_corner = corners[-2]
     t1, r1, b1, l1 = check_direction(last_corner, contour_img)
     t2, r2, b2, l2 = check_direction(current_corner, contour_img)
-
     if (t1 and b2) and (t2 and b1) and is_in_range(current_corner[0], last_corner[0]):
         return last_direction
 
@@ -412,8 +411,8 @@ def draw_closure_areas(img, closure_areas):
 
 
 def build_wall_contour_image_list(edges_img, contours):
-    for contour in contours:
-        wall_contour_images.append(draw_wall_contour(edges_img, [contour]))
+    for i,contour in enumerate(contours):
+            wall_contour_images.append(draw_wall_contour(edges_img, [contour]))
 
 
 def readjust_closure_areas(closure_areas):
@@ -433,7 +432,6 @@ def extract_corners_from_contours(edges_img, contours):
     new_corners = []
     wall_contour_images.clear()
     build_wall_contour_image_list(edges_img, contours)
-
     for i, img in enumerate(wall_contour_images):
         contour_img, corners = extract_wall_corners_sub(img)
         if is_wall_a_legal_structure(corners):
